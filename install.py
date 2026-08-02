@@ -239,8 +239,11 @@ def install_venv(skill_dir: Path, uv: Path) -> None:
         r = run([str(uv), "venv", str(skill_dir / ".venv")])
         if r.returncode != 0:
             sys.exit(f"uv venv 失败：{r.returncode}")
+    # --only-binary: 全部用预编译 wheel，避免 Windows 上缺 MSVC/Rust 时
+    # 从源码编译 pydantic-core 等失败；网络慢可设 UV_DEFAULT_INDEX 换国内镜像
     r = run(
-        [str(uv), "pip", "install", "--python", str(python), "-U", PDF2ZH_PKG],
+        [str(uv), "pip", "install", "--python", str(python),
+         "--only-binary", ":all:", "-U", PDF2ZH_PKG],
         env={**os.environ, "UV_HTTP_TIMEOUT": "300"},
     )
     if r.returncode != 0:

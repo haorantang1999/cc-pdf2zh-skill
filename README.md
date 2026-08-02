@@ -146,6 +146,9 @@ python assets/apply_glossary.py out/paper-mono.pdf \
 **必须要 conda 吗？** 不需要。uv 一条命令搞定。硬要 conda 也行：
 `conda create -n pdf2zh -c conda-forge pdf2zh`。
 
+**国内安装慢 / 报编译错误？** 安装器强制使用预编译 wheel（无需本机 Rust/MSVC）。
+网络慢就用清华镜像：`UV_DEFAULT_INDEX=https://pypi.tuna.tsinghua.edu.cn/simple python install.py`。
+
 **免费方案有吗？** 有：`google` / `bing` / `argos` 零成本（质量与术语可控性一般）；
 `ollama` 跑本地模型零成本（吃显存）。其他 LLM 服务按 token 计费，一篇论文通常几分钱。
 
