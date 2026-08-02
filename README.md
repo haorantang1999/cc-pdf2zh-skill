@@ -2,7 +2,7 @@
   <img src="assets/images/pipeline.svg" width="860" alt="Agent 驱动 PDF 翻译流水线"/>
 </p>
 
-# pdf2zh-skill · 让 AI 代理帮你翻译整本论文 PDF
+# cc-pdf2zh-skill · 让 AI 代理帮你翻译整本论文 PDF
 
 > **一句话**：把英文 PDF 丢给 **Claude Code / OpenCode**，说一句「翻译这篇论文」，
 > 回来的是**保留公式、图表、排版**的 纯中文 + 中英对照 两个 PDF。
@@ -140,11 +140,6 @@ python assets/apply_glossary.py out/paper-mono.pdf \
   -g my-glossary.txt -o out/paper-fixed.pdf
 ```
 
-## 安全：你的 key 不会进代码
-
-- API key 只写入 skill 目录的 `.env`（安装器生成，Unix 权限 600）；
-- 仓库 `.gitignore` 已把 `.env` 排除 —— **key 永远不会被 commit**；
-- 安装向导全程不打印 key，输入时不回显。
 
 ## 常见问题
 
