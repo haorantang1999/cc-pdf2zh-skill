@@ -241,9 +241,12 @@ def install_venv(skill_dir: Path, uv: Path) -> None:
             sys.exit(f"uv venv 失败：{r.returncode}")
     # --only-binary: 全部用预编译 wheel，避免 Windows 上缺 MSVC/Rust 时
     # 从源码编译 pydantic-core 等失败；网络慢可设 UV_DEFAULT_INDEX 换国内镜像
+    # tencentcloud-sdk-python-tmt 固定 3.1.70：新版 SDK 移除了 pdf2zh 依赖的
+    # TextTranslateRequest（pdf2zh v1.9.x 实测兼容到 3.1.70）
     r = run(
         [str(uv), "pip", "install", "--python", str(python),
-         "--only-binary", ":all:", "-U", PDF2ZH_PKG],
+         "--only-binary", ":all:", "-U",
+         PDF2ZH_PKG, "tencentcloud-sdk-python-tmt==3.1.70"],
         env={**os.environ, "UV_HTTP_TIMEOUT": "300"},
     )
     if r.returncode != 0:
