@@ -12,6 +12,7 @@
 [![Engine](https://img.shields.io/badge/引擎-PDFMathTranslate-6366f1)](https://github.com/PDFMathTranslate/PDFMathTranslate)
 [![License](https://img.shields.io/badge/License-MIT-22c55e)](#license)
 [![Agents](https://img.shields.io/badge/兼容-Claude%20Code%20%7C%20OpenCode-22d3ee)](#-安装)
+<img width="1261" height="803" alt="image" src="https://github.com/user-attachments/assets/52205767-5dd2-4608-8114-7f9e93715723" />
 
 ---
 
