@@ -1,0 +1,2 @@
+# 统一 LF 换行，避免 Windows CRLF 污染脚本与 SVG
+* text=auto eol=lf
