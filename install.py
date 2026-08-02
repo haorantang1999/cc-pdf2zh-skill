@@ -236,7 +236,9 @@ def install_venv(skill_dir: Path, uv: Path) -> None:
     if python.exists():
         pprint(f"  已存在 {python}，跳过创建。")
     else:
-        r = run([str(uv), "venv", str(skill_dir / ".venv")])
+        # 固定 Python 3.12：babeldoc 0.2.x 依赖 concurrent.futures 私有 API，
+        # Python 3.13+ 改签名后会直接崩溃；3.10/3.11 亦可
+        r = run([str(uv), "venv", "--python", "3.12", str(skill_dir / ".venv")])
         if r.returncode != 0:
             sys.exit(f"uv venv 失败：{r.returncode}")
     # --only-binary: 全部用预编译 wheel，避免 Windows 上缺 MSVC/Rust 时

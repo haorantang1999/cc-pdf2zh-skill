@@ -7,7 +7,7 @@
 > **一句话**：把英文 PDF 丢给 **Claude Code / OpenCode**，说一句「翻译这篇论文」，
 > 回来的是**保留公式、图表、排版**的 纯中文 + 中英对照 两个 PDF。
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org)
+[![Python](https://img.shields.io/badge/Python-3.10--3.12-3776AB?logo=python&logoColor=white)](https://www.python.org)
 [![uv](https://img.shields.io/badge/包管理-uv-4B32C3?logo=uv&logoColor=white)](https://github.com/astral-sh/uv)
 [![Engine](https://img.shields.io/badge/引擎-PDFMathTranslate-6366f1)](https://github.com/PDFMathTranslate/PDFMathTranslate)
 [![License](https://img.shields.io/badge/License-MIT-22c55e)](#license)
