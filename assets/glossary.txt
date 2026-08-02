@@ -1,0 +1,21 @@
+# Glossary for PDF translation post-processing.
+# One entry per line:  source -> target
+# Lines starting with '#' are ignored.
+# Match is literal and case-sensitive. List longer phrases first.
+#
+# Common LLM/AI terms
+# -------------------
+LLM -> 大语言模型
+LLMs -> 大语言模型
+LLM-based -> 基于大语言模型
+LLM-empowered -> 由大语言模型驱动
+法学硕士 -> 大语言模型        # Google sometimes renders "LLM" as 法学硕士 (juris master); catch that
+prompt -> 提示
+prompts -> 提示
+fine-tuning -> 微调
+embedding -> 嵌入
+embeddings -> 嵌入
+token -> 词元
+tokens -> 词元
+# transformer -> Transformer   # uncomment if you want to keep the English spelling
+reinforcement learning -> 强化学习

@@ -1,0 +1,24 @@
+# ---- 密钥保护：.env 里存 API key，绝不能入库 ----
+.env
+*.env
+!.env.example
+
+# ---- 运行时 ----
+.venv/
+__pycache__/
+*.pyc
+
+# ---- 翻译产物 ----
+*.pdf
+out/
+output/
+outputs/
+
+# ---- 编辑器 / 系统 ----
+.DS_Store
+.idea/
+.vscode/
+*.log
+
+# ---- Claude Code 会话本地配置（含个人路径，不入库）----
+.claude/

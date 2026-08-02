@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" font-family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1120"/><stop offset="1" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="ok" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="bad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f43f5e"/><stop offset="1" stop-color="#fb7185"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1000" height="420" rx="20" fill="url(#bg)"/>
+  <text x="500" y="52" text-anchor="middle" fill="#e2e8f0" font-size="26" font-weight="700">传统复制粘贴 vs Agent 流水线</text>
+  <text x="500" y="80" text-anchor="middle" fill="#94a3b8" font-size="15">同样一篇 30 页的顶会论文，两种命运</text>
+
+  <!-- left: traditional -->
+  <g>
+    <rect x="40" y="110" width="440" height="280" rx="16" fill="#1e293b" stroke="#f43f5e" stroke-opacity="0.5" stroke-width="2"/>
+    <rect x="40" y="110" width="440" height="48" rx="16" fill="#3f1d2b"/>
+    <path d="M120 134l8 8-8 8M116 134l-8 8 8 8" stroke="#fb7185" stroke-width="3" stroke-linecap="round"/>
+    <text x="140" y="141" fill="#fecdd3" font-size="17" font-weight="700">传统做法：复制 → 粘贴 → 手动排版</text>
+
+    <g fill="#fda4af" font-size="15">
+      <text x="70" y="196">1. 逐段复制到 ChatGPT，翻完再粘回来</text>
+      <text x="70" y="230">2. 公式全部变成乱码 / 图片，需要重新找</text>
+      <text x="70" y="264">3. 双栏排版没了，表格结构碎成一地</text>
+      <text x="70" y="298">4. 术语不一致：「LLM」一会儿「法学硕士」</text>
+      <text x="70" y="332">5. 手动调整格式 · 校对 · 全文重排…</text>
+    </g>
+
+    <rect x="70" y="352" width="200" height="26" rx="13" fill="#f43f5e" opacity="0.2"/>
+    <text x="170" y="370" text-anchor="middle" fill="#fecdd3" font-size="14" font-weight="700">耗时 1~2 小时</text>
+  </g>
+
+  <!-- right: agent -->
+  <g>
+    <rect x="520" y="110" width="440" height="280" rx="16" fill="#1e293b" stroke="#34d399" stroke-opacity="0.6" stroke-width="2"/>
+    <rect x="520" y="110" width="440" height="48" rx="16" fill="#064e3b"/>
+    <path d="M598 134l10 10-10 10M602 134l-10 10 10 10" stroke="#6ee7b7" stroke-width="3" stroke-linecap="round"/>
+    <text x="618" y="141" fill="#a7f3d0" font-size="17" font-weight="700">Agent 方案：一句话，等收稿</text>
+
+    <g fill="#6ee7b7" font-size="15">
+      <text x="550" y="196">1. 对 Claude Code / OpenCode 说「翻译这篇 PDF」</text>
+      <text x="550" y="230">2. 引擎自动识别公式、表格、图片位置</text>
+      <text x="550" y="264">3. 翻译文本精准回填，排版原样保留</text>
+      <text x="550" y="298">4. 术语表强制约束：LLM → 大语言模型</text>
+      <text x="550" y="332">5. 得到 纯中文 + 中英对照 两个 PDF</text>
+    </g>
+
+    <rect x="550" y="352" width="200" height="26" rx="13" fill="#10b981" opacity="0.25"/>
+    <text x="650" y="370" text-anchor="middle" fill="#a7f3d0" font-size="14" font-weight="700">耗时约 30 秒</text>
+  </g>
+</svg>

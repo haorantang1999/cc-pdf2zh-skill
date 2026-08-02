@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" font-family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1120"/><stop offset="1" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="ok" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#10b981"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#818cf8"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="360" rx="20" fill="url(#bg)"/>
+  <text x="500" y="52" text-anchor="middle" fill="#e2e8f0" font-size="26" font-weight="700">Agent 驱动 · 学术 PDF 翻译流水线</text>
+  <text x="500" y="80" text-anchor="middle" fill="#94a3b8" font-size="15">公式、图表、排版 —— 全部原样保留</text>
+
+  <!-- input -->
+  <g>
+    <rect x="40" y="130" width="180" height="170" rx="14" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    <rect x="40" y="130" width="180" height="44" rx="14" fill="#334155"/>
+    <text x="130" y="158" text-anchor="middle" fill="#f8fafc" font-size="16" font-weight="700">英文论文</text>
+    <rect x="70" y="196" width="120" height="10" rx="5" fill="#64748b"/>
+    <rect x="70" y="216" width="90" height="10" rx="5" fill="#475569"/>
+    <rect x="70" y="236" width="110" height="10" rx="5" fill="#475569"/>
+    <rect x="70" y="262" width="64" height="18" rx="9" fill="#f59e0b" opacity="0.9"/>
+    <text x="102" y="275" text-anchor="middle" fill="#0f172a" font-size="11" font-weight="700">paper.pdf</text>
+  </g>
+
+  <!-- arrow 1 -->
+  <line x1="228" y1="215" x2="282" y2="215" stroke="#818cf8" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="255" y="200" text-anchor="middle" fill="#a5b4fc" font-size="12">拖入 / 说句话</text>
+
+  <!-- engine -->
+  <g>
+    <rect x="290" y="130" width="230" height="170" rx="14" fill="#1e293b" stroke="url(#acc)" stroke-width="2"/>
+    <rect x="290" y="130" width="230" height="44" rx="14" fill="#312e81"/>
+    <text x="405" y="158" text-anchor="middle" fill="#f8fafc" font-size="16" font-weight="700">PDFMathTranslate 引擎</text>
+    <text x="405" y="210" text-anchor="middle" fill="#c7d2fe" font-size="14">版面解析 · 公式识别</text>
+    <text x="405" y="234" text-anchor="middle" fill="#c7d2fe" font-size="14">表格结构 · 图片定位</text>
+    <text x="405" y="258" text-anchor="middle" fill="#c7d2fe" font-size="14">双栏对齐 · 排版复刻</text>
+    <circle cx="352" cy="196" r="14" fill="url(#acc)" opacity="0.9"/>
+    <path d="M346 196h12M352 190v12" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+  </g>
+
+  <!-- arrow 2 -->
+  <line x1="528" y1="215" x2="582" y2="215" stroke="#818cf8" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="555" y="200" text-anchor="middle" fill="#a5b4fc" font-size="12">抽取文本</text>
+
+  <!-- llm -->
+  <g>
+    <rect x="590" y="130" width="230" height="170" rx="14" fill="#1e293b" stroke="#a855f7" stroke-width="2"/>
+    <rect x="590" y="130" width="230" height="44" rx="14" fill="#581c87"/>
+    <text x="705" y="158" text-anchor="middle" fill="#f8fafc" font-size="16" font-weight="700">LLM 翻译 + 术语表</text>
+    <rect x="622" y="190" width="166" height="32" rx="16" fill="#0f172a"/>
+    <text x="705" y="211" text-anchor="middle" fill="#e9d5ff" font-size="13" font-weight="600">deepseek · qwen · gpt · glm</text>
+    <rect x="622" y="234" width="166" height="32" rx="16" fill="#0f172a"/>
+    <text x="705" y="255" text-anchor="middle" fill="#e9d5ff" font-size="13" font-weight="600">LLM → 大语言模型（强制）</text>
+    <rect x="622" y="278" width="166" height="10" rx="5" fill="#7c3aed"/>
+  </g>
+
+  <!-- arrow 3 -->
+  <line x1="828" y1="215" x2="882" y2="215" stroke="#818cf8" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="855" y="200" text-anchor="middle" fill="#a5b4fc" font-size="12">回填排版</text>
+
+  <!-- output -->
+  <g>
+    <rect x="890" y="130" width="78" height="170" rx="14" fill="#064e3b" stroke="url(#ok)" stroke-width="2"/>
+    <text x="929" y="158" text-anchor="middle" fill="#d1fae5" font-size="15" font-weight="700">双份</text>
+    <text x="929" y="178" text-anchor="middle" fill="#d1fae5" font-size="15" font-weight="700">输出</text>
+    <rect x="900" y="196" width="58" height="34" rx="8" fill="#065f46"/>
+    <text x="929" y="218" text-anchor="middle" fill="#a7f3d0" font-size="12" font-weight="700">-mono</text>
+    <text x="929" y="233" text-anchor="middle" fill="#a7f3d0" font-size="11">纯中文</text>
+    <rect x="900" y="240" width="58" height="34" rx="8" fill="#065f46"/>
+    <text x="929" y="262" text-anchor="middle" fill="#a7f3d0" font-size="12" font-weight="700">-dual</text>
+    <text x="929" y="277" text-anchor="middle" fill="#a7f3d0" font-size="11">中英对照</text>
+  </g>
+
+  <text x="500" y="340" text-anchor="middle" fill="#64748b" font-size="13">Claude Code / OpenCode 在中间调度：解析 → 翻译 → 回填，全程无需手动复制粘贴</text>
+</svg>

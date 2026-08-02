@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" font-family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1120"/><stop offset="1" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="ok" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="bad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f43f5e"/><stop offset="1" stop-color="#fb7185"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1000" height="300" rx="20" fill="url(#bg)"/>
+  <text x="500" y="48" text-anchor="middle" fill="#e2e8f0" font-size="24" font-weight="700">术语保真：杜绝「法学硕士」惨案</text>
+
+  <!-- before -->
+  <g>
+    <rect x="60" y="90" width="420" height="80" rx="14" fill="#1e293b" stroke="#f43f5e" stroke-opacity="0.5" stroke-width="2"/>
+    <text x="80" y="120" fill="#fda4af" font-size="14" font-weight="700">没有术语表时（Google 翻译）</text>
+    <text x="80" y="152" fill="#e2e8f0" font-size="16">…最近的「法学硕士」模型在推理任务上…</text>
+    <rect x="96" y="139" width="84" height="22" rx="4" fill="#f43f5e" opacity="0.3"/>
+    <path d="M96 158 L180 141" stroke="#fb7185" stroke-width="2.5"/>
+  </g>
+
+  <path d="M490 130 q20 0 20 20 q0 20 -20 20" fill="none" stroke="#818cf8" stroke-width="3"/>
+  <text x="500" y="118" text-anchor="middle" fill="#a5b4fc" font-size="12">术语表</text>
+
+  <!-- after -->
+  <g>
+    <rect x="520" y="90" width="420" height="80" rx="14" fill="#1e293b" stroke="#34d399" stroke-opacity="0.6" stroke-width="2"/>
+    <text x="540" y="120" fill="#6ee7b7" font-size="14" font-weight="700">有术语表时（LLM 服务 + --prompt）</text>
+    <text x="540" y="152" fill="#e2e8f0" font-size="16">…最近的「大语言模型」在推理任务上…</text>
+    <rect x="556" y="139" width="100" height="22" rx="4" fill="#10b981" opacity="0.25"/>
+  </g>
+
+  <text x="500" y="220" text-anchor="middle" fill="#94a3b8" font-size="14">assets/prompt.txt 预置词条：LLM → 大语言模型 · fine-tuning → 微调 · embedding → 嵌入 · token → 词元…</text>
+  <text x="500" y="250" text-anchor="middle" fill="#64748b" font-size="13">机器翻译服务翻完的 PDF，还能用 apply_glossary.py 就地修补，一次清干净</text>
+</svg>

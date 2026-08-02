@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" font-family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1120"/><stop offset="1" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="bad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f43f5e"/><stop offset="1" stop-color="#fb7185"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#818cf8"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="300" rx="20" fill="url(#bg)"/>
+
+  <!-- step 1 -->
+  <g>
+    <circle cx="70" cy="90" r="34" fill="#312e81" stroke="#818cf8" stroke-width="2"/>
+    <text x="70" y="100" text-anchor="middle" fill="#e0e7ff" font-size="26" font-weight="700">1</text>
+    <text x="70" y="158" text-anchor="middle" fill="#e2e8f0" font-size="16" font-weight="700">一键安装</text>
+    <text x="70" y="182" text-anchor="middle" fill="#94a3b8" font-size="13">python install.py</text>
+    <text x="70" y="202" text-anchor="middle" fill="#94a3b8" font-size="13">uv 自动装好引擎</text>
+  </g>
+
+  <line x1="118" y1="90" x2="162" y2="90" stroke="#818cf8" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- step 2 -->
+  <g>
+    <circle cx="220" cy="90" r="34" fill="#312e81" stroke="#818cf8" stroke-width="2"/>
+    <text x="220" y="100" text-anchor="middle" fill="#e0e7ff" font-size="26" font-weight="700">2</text>
+    <text x="220" y="158" text-anchor="middle" fill="#e2e8f0" font-size="16" font-weight="700">选模型 · 填 key</text>
+    <text x="220" y="182" text-anchor="middle" fill="#94a3b8" font-size="13">deepseek / qwen</text>
+    <text x="220" y="202" text-anchor="middle" fill="#94a3b8" font-size="13">gpt / glm / grok…</text>
+  </g>
+
+  <line x1="268" y1="90" x2="312" y2="90" stroke="#818cf8" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- step 3 -->
+  <g>
+    <circle cx="370" cy="90" r="34" fill="#312e81" stroke="#818cf8" stroke-width="2"/>
+    <text x="370" y="100" text-anchor="middle" fill="#e0e7ff" font-size="26" font-weight="700">3</text>
+    <text x="370" y="158" text-anchor="middle" fill="#e2e8f0" font-size="16" font-weight="700">拖入 PDF</text>
+    <text x="370" y="182" text-anchor="middle" fill="#94a3b8" font-size="13">对 Agent 说一句</text>
+    <text x="370" y="202" text-anchor="middle" fill="#94a3b8" font-size="13">「翻译这篇论文」</text>
+  </g>
+
+  <line x1="418" y1="90" x2="462" y2="90" stroke="#818cf8" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- step 4 -->
+  <g>
+    <circle cx="520" cy="90" r="34" fill="#312e81" stroke="#818cf8" stroke-width="2"/>
+    <text x="520" y="100" text-anchor="middle" fill="#e0e7ff" font-size="26" font-weight="700">4</text>
+    <text x="520" y="158" text-anchor="middle" fill="#e2e8f0" font-size="16" font-weight="700">术语修补</text>
+    <text x="520" y="182" text-anchor="middle" fill="#94a3b8" font-size="13">LLM → 大语言模型</text>
+    <text x="520" y="202" text-anchor="middle" fill="#94a3b8" font-size="13">自动 / 半自动</text>
+  </g>
+
+  <line x1="568" y1="90" x2="612" y2="90" stroke="#818cf8" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- step 5 -->
+  <g>
+    <circle cx="670" cy="90" r="34" fill="url(#okgrad)" stroke="#34d399" stroke-width="2"/>
+    <text x="670" y="100" text-anchor="middle" fill="#022c22" font-size="26" font-weight="700">5</text>
+    <text x="670" y="158" text-anchor="middle" fill="#e2e8f0" font-size="16" font-weight="700">双语成稿</text>
+    <text x="670" y="182" text-anchor="middle" fill="#94a3b8" font-size="13">-mono.pdf 纯中文</text>
+    <text x="670" y="202" text-anchor="middle" fill="#94a3b8" font-size="13">-dual.pdf 中英对照</text>
+  </g>
+  <defs>
+    <linearGradient id="okgrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#10b981"/>
+    </linearGradient>
+  </defs>
+
+  <text x="500" y="268" text-anchor="middle" fill="#64748b" font-size="14">全程约 30 秒，无复制粘贴，无手动排版</text>
+</svg>
