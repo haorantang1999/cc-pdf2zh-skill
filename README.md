@@ -45,7 +45,7 @@
 <img src="assets/images/workflow.svg" width="860" alt="30 秒工作流"/>
 
 ## 安装（30 秒，交互式向导）
-其实，你可以直接对你的agent说：“嘿帮我装一下这个skill：‘https://github.com/haorantang1999/cc-pdf2zh-skill’”
+其实，你可以直接对你的agent说：嘿帮我装一下这个skill：https://github.com/haorantang1999/cc-pdf2zh-skill
 
 手动安装：
 ```bash
