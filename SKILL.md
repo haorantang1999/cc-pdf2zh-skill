@@ -77,7 +77,10 @@ python "$SKILL_DIR/assets/apply_glossary.py" paper-mono.pdf \
   -g "$SKILL_DIR/assets/glossary.txt" -o paper-mono-fixed.pdf
 ```
 
-用 PyMuPDF 在原文位置盖白块、叠写正确术语，周边排版不变。
+用 PyMuPDF 定位原词位置、**真正擦除**原字形（redaction，不是盖白块），再按原
+基线写入正确术语，周边排版不变。擦除区宽度按**新词实际渲染宽度**撑开，中译英
+时新词通常更长，否则原词会露出来与新词重叠。字号会按列宽自动微缩以免串栏。
+
 模板 `assets/glossary.txt` 已预置 LLM 常见词条；长词组放短词组前；字面量匹配。
 
 典型工作流：
@@ -87,6 +90,61 @@ python "$SKILL_DIR/assets/apply_glossary.py" paper-mono.pdf \
 python "$SKILL_DIR/assets/apply_glossary.py" \
   out/paper-mono.pdf -g my-glossary.txt -o out/fixed.pdf   # 2. 修补
 ```
+
+## 2.5 必做：翻译后自检
+
+pdf2zh **不会100% 翻译成功**，交付前必须验一遍，否则会把半成品交给用户。
+
+### 摘要经常被整块漏译
+
+babeldoc 的版面分析偶尔会把Abstract 当成独立文本块跳过，表现为：首页标题、
+作者、关键词都是中文，唯独摘要整段还是英文。**这是已知的高频坑。**
+
+快速体检（找出漏译的英文块）：
+
+```bash
+python - <<'PY'
+import fitz, re
+doc = fitz.open("out/paper-mono.pdf")
+for pno in range(doc.page_count):
+    for b in doc[pno].get_text("blocks"):
+        t = b[4].strip()
+        if len(t) < 40: continue
+        en = len(re.findall(r"[A-Za-z]{3,}", t))
+        cn = sum(1 for c in t if "\u4e00" <= c <= "\u9fff")
+        if en >= 12 and cn / (cn + en) < 0.35:
+            print(f"p{pno+1}  ratio={cn/(cn+en):.2f}  {t[:70]!r}")
+PY
+```
+
+### 哪些英文残留是正常的，别乱改
+
+图内对话气泡 / 表格数字 / JSON 输出示例 / 参考文献 / 作者名与机构 ——
+论文原本就该保留原文。**只补真正的正文漏译**。
+
+### 补译整块漏译文本的正确姿势
+
+自己写脚本覆盖时，PyMuPDF 有两个坑（实测于1.25.x）：
+
+1. `page.insert_textbox(fontfile=...)` 会**静默丢掉全部 CJK 字形**，渲染成一串
+   `?`。必须用 `TextWriter` + `fitz.Font`，且 origin 要传 `fitz.Point`：
+   ```python
+   tw = fitz.TextWriter(page.rect)
+   tw.append(fitz.Point(x, y), line, font=font, fontsize=fs)
+   tw.write_text(page, color=(0, 0, 0))
+   ```
+2. `page.draw_rect()` 只是**在内容流上叠一个白色矩形**，底下的原 glyph 依然存在 ——
+   可选中、可复制、`get_text()` 仍能提取到。必须先redact 再写字：
+   ```python
+   page.add_redact_annot(rect)
+   page.apply_redactions(images=fitz.PDF_REDACT_IMAGE_NONE,
+                         graphics=fitz.PDF_REDACT_LINE_ART_NONE,
+                         text=fitz.PDF_REDACT_TEXT_REMOVE)
+   ```
+   且**redact 与写新字必须分两阶段**：`apply_redactions` 会把落在擦除矩形内的
+   东西一并删掉，同一趟循环里先写字再 apply 会把新字也删没。
+
+3. 顺带一提，`doc.save()` 在 1.25 里参数是 `garbage=`，没有 `garbage_collection=`。
 
 ## 3. 支持的翻译服务（pdf2zh v1.9+ 官方）
 

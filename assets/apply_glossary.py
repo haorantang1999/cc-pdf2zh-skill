@@ -3,9 +3,20 @@
 
 Use this when the translator (typically the default Google one) produced
 unwanted translations for specific terms — e.g. "LLM" rendered as "法学硕士".
-The script paints a white rectangle over each occurrence of the source term
-and writes the target term on top in the same baseline, preserving the
-surrounding layout.
+The script erases each occurrence of the source term and writes the target
+term in its place, preserving the surrounding layout.
+
+Two things this script gets right that a naive "draw a white box" does not:
+
+1. The original glyphs are genuinely removed from the content stream via
+   redaction annotations, not merely covered. A white rectangle leaves the
+   old text intact underneath: it stays selectable, copy-pastable and findable
+   by full-text search, so readers get BOTH terms.
+
+2. The erased region is widened to fit the *replacement* text. CJK->Latin
+   replacements are usually longer than the term they replace (三维掩码 is 4
+   glyphs, "3D mask" is noticeably wider), so a mask sized to the original
+   leaves the old word sticking out and the two overlap.
 
 Glossary file
 -------------
@@ -87,21 +98,43 @@ def parse_glossary(path: Path) -> list[tuple[str, str]]:
     return pairs
 
 
+def _fit_scale(
+    target: str,
+    fontsize: float,
+    font: "pymupdf.Font",
+    avail_w: float,
+) -> float:
+    """Largest scale <= 1 that fits `target` into `avail_w` (never scales up)."""
+    w = font.text_length(target, fontsize=fontsize)
+    if w <= 0 or w <= avail_w:
+        return 1.0
+    return max(0.6, avail_w / w)
+
+
 def apply_glossary(
     pdf: Path,
     glossary: list[tuple[str, str]],
     output: Path,
     cjk_font: Path,
 ) -> tuple[int, int]:
-    """Returns (total_replacements, pages_touched)."""
+    """Returns (total_replacements, pages_touched).
+
+    Each page is processed in two phases, because PyMuPDF's
+    ``apply_redactions`` also removes anything already drawn inside the
+    redaction rectangle — including text inserted earlier in the same loop:
+
+        phase 1  queue redact annots for every hit, apply them  (removal)
+        phase 2  draw the replacement terms                     (insert)
+
+    Doing both in one pass silently deletes the replacements again.
+    """
     doc = pymupdf.open(str(pdf))
     total = 0
     pages_touched: set[int] = set()
+    cjk = pymupdf.Font(fontfile=str(cjk_font))
 
     for pi, page in enumerate(doc):
-        # Register the CJK font on each page that will receive inserts.
-        # We do this lazily on the first hit to keep the no-op case fast.
-        page_fontname: str | None = None
+        jobs: list[tuple[pymupdf.Rect, str, float]] = []
 
         for source, target in glossary:
             if not source:
@@ -109,30 +142,43 @@ def apply_glossary(
             rects = page.search_for(source)
             if not rects:
                 continue
-            if page_fontname is None:
-                page_fontname = f"g{pi}"
-                page.insert_font(fontname=page_fontname, fontfile=str(cjk_font))
-            for rect in rects:
-                # Cover the original glyphs with a white rectangle.
-                page.draw_rect(
-                    rect,
-                    color=(1, 1, 1),
-                    fill=(1, 1, 1),
-                    overlay=True,
-                    width=0,
-                )
-                # Draw the replacement text at the original baseline.
-                baseline_y = rect.y0 + rect.height * 0.78
-                fontsize = max(6.0, min(14.0, rect.height * 0.9))
-                page.insert_text(
-                    (rect.x0, baseline_y),
-                    target,
-                    fontname=page_fontname,
-                    fontsize=fontsize,
-                    color=(0, 0, 0),
-                )
-                total += 1
             pages_touched.add(pi)
+            for rect in rects:
+                fontsize = max(6.0, min(14.0, rect.height * 0.9))
+                # Shrink rather than let a much longer replacement run into
+                # the neighbouring column.
+                scale = _fit_scale(target, fontsize, cjk, rect.width)
+                fontsize *= scale
+                new_w = cjk.text_length(target, fontsize=fontsize)
+                # Erase wide enough for the replacement, not just the original.
+                erase = pymupdf.Rect(rect.x0, rect.y0,
+                                     max(rect.x1, rect.x0 + new_w + 1.0),
+                                     rect.y0 + rect.height)
+                jobs.append((erase, target, fontsize))
+                total += 1
+
+        if not jobs:
+            continue
+
+        # Phase 1: genuinely remove the source glyphs.
+        for erase, _, _ in jobs:
+            page.add_redact_annot(erase)
+        page.apply_redactions(
+            images=pymupdf.PDF_REDACT_IMAGE_NONE,
+            graphics=pymupdf.PDF_REDACT_LINE_ART_NONE,
+            text=pymupdf.PDF_REDACT_TEXT_REMOVE,
+        )
+
+        # Phase 2: write the replacements at the original baselines.
+        page.insert_font(fontname=f"g{pi}", fontfile=str(cjk_font))
+        for erase, target, fontsize in jobs:
+            page.insert_text(
+                (erase.x0, erase.y0 + erase.height * 0.78),
+                target,
+                fontname=f"g{pi}",
+                fontsize=fontsize,
+                color=(0, 0, 0),
+            )
 
     output.parent.mkdir(parents=True, exist_ok=True)
     doc.save(str(output), garbage=4, deflate=True)
